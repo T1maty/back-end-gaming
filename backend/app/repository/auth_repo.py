@@ -48,6 +48,10 @@ class JWTBearer(HTTPBearer):
             if not self.verify_jwt(credentials.credentials):
                 raise HTTPException(
                     status_code=403, detail={"status":"Forbidden", "message": "Invalid token or expired token."}
-                )        
+                )  
+
+    @staticmethod
+    def verify_jwt(jwt_token: str):
+        return True if jwt.decode(jwt_token, SECRET_KEY, algorithms=[ALGORITHM]) is not None else False      
                           
             
